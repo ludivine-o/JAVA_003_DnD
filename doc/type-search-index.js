@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"dnd","l":"Arme"},{"p":"dnd","l":"Bouclier"},{"p":"dnd","l":"DnD"},{"p":"dnd","l":"Philtre"},{"p":"dnd","l":"Sort"},{"p":"dnd","l":"Warrior"},{"p":"dnd","l":"Wizzard"}]

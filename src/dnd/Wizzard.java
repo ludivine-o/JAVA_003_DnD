@@ -1,20 +1,72 @@
 package dnd;
 
 public class Wizzard{
-	String nom;
-	String imageURL;
-	int niveauDeVie;
-	int forceAttaque;
-	Sort sort;
-	Philtre philtre;
+	private String nom;
+	private String imageURL;
+	private int niveauDeVie;
+	private int niveauDeVieMin = 5 ;
+	private int niveauDeVieMax = 10 ;
+	private int forceAttaque;
+	private int forceAttaqueMin = 5;
+	private int forceAttaqueMax = 10;
+	private Sort sort;
+	private Philtre philtre;
 
+	/* ---------------------------Methods ----------------------*/
+	
+	public String toString() {
+		return this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque + " d'attaque.\n" ;
+	}
+	
+	// Getters
+	public String getName() {
+		return nom;
+	}
+	public String getURL() {
+		return imageURL;
+	}
+	public int getLife() {
+		return niveauDeVie;
+	}
+	public int getAttack() {
+		return forceAttaque;
+	}
+	public Sort getSort() {
+		return sort;
+	}
+	public Philtre getPhiltre() {
+		return philtre;
+	}
 
+	//Setters
+	public void setName(String newValue) {
+		this.nom = newValue;
+	}
+	public void setURL(String newValue) {
+		this.imageURL = newValue;
+	}
+	public void setLife(int newValue) {
+		this.niveauDeVie = newValue;
+	}
+	public void setAttack(int newValue) {
+		this.forceAttaque = newValue;
+	}
+	public void setSort(Sort newValue) {
+		this.sort = newValue;
+	}
+	public void setPhiltre(Philtre newValue) {
+		this.philtre = newValue;
+	}
+	
+	
+	/* ---------------------------Constructors ----------------------*/
+	
 	//Constructeur par defaut
 	public Wizzard () {
 		nom = "Inconnu";
 		imageURL = "Pas d'image";
-		niveauDeVie = 10;
-		forceAttaque = 10;
+		niveauDeVie = 5;
+		forceAttaque = 5;
 		sort = new Sort();
 		philtre = new Philtre();
 
@@ -24,15 +76,19 @@ public class Wizzard{
 	public Wizzard (String name) {
 		nom = name;
 		imageURL = "Pas d'image";
-		niveauDeVie = 10;
-		forceAttaque = 10;
+		niveauDeVie = 5;
+		forceAttaque = 5;
 		sort = new Sort();
 		philtre = new Philtre();
 
 	}
 
 	//Constructeur complet
+
 	public Wizzard (String name, String url, int life, int attack) {
+		if (name.equals("") || url.equals("") || life < niveauDeVieMin || life > niveauDeVieMax || attack > forceAttaqueMax || attack < forceAttaqueMin) {
+			throw new IllegalArgumentException("Paramètres invalides. Réssayer");
+		}
 		nom = name;
 		imageURL = url;
 		niveauDeVie = life;

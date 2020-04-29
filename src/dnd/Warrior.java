@@ -1,19 +1,74 @@
 package dnd;
 
 public class Warrior{
-	String nom;
-	String imageURL;
-	int niveauDeVie;
-	int forceAttaque;
-	Arme arme;
-	Bouclier bouclier;
+	private String nom;
+	private String imageURL;
+	private int niveauDeVie;
+	private int niveauDeVieMin = 5;
+	private int niveauDeVieMax = 10;
+	private int forceAttaque;
+	private int forceAttaqueMin = 5;
+	private int forceAttaqueMax = 10;
+	private Arme arme;
+	private Bouclier bouclier;
+	
 
+	/* ---------------------------Methods ----------------------*/
+	
+	public String toString() {
+		return this.nom + " est un Guerrier. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque + " d'attaque." ;
+	}
+	
+	// Getters
+	public String getName() {
+		return nom;
+	}
+	public String getURL() {
+		return imageURL;
+	}
+	public int getLife() {
+		return niveauDeVie;
+	}
+	public int getAttack() {
+		return forceAttaque;
+	}
+	public Arme getArme() {
+		return arme;
+	}
+	public Bouclier getBouclier() {
+		return bouclier;
+	}
+
+	//Setters
+	public void setName(String newValue) {
+		this.nom = newValue;
+	}
+	public void setURL(String newValue) {
+		this.imageURL = newValue;
+	}
+	public void setLife(int newValue) {
+		this.niveauDeVie = newValue;
+	}
+	public void setAttack(int newValue) {
+		this.forceAttaque = newValue;
+	}
+	public void setArme(Arme newValue) {
+		this.arme = newValue;
+	}
+	public void setBouclier(Bouclier newValue) {
+		this.bouclier = newValue;
+	}
+	
+	
+	
+	/* ---------------------------Constructors ----------------------*/
+	
 	//Constructeur par defaut
 	public Warrior () {
 		nom = "Inconnu";
 		imageURL = "Pas d'image";
-		niveauDeVie = 10;
-		forceAttaque = 10;
+		niveauDeVie = 5;
+		forceAttaque = 5;
 		arme = new Arme();
 		bouclier = new Bouclier();
 
@@ -23,8 +78,8 @@ public class Warrior{
 	public Warrior (String name) {
 		nom = name;
 		imageURL = "Pas d'image";
-		niveauDeVie = 10;
-		forceAttaque = 10;
+		niveauDeVie = 5;
+		forceAttaque = 5;
 		arme = new Arme();
 		bouclier = new Bouclier();
 
@@ -32,6 +87,9 @@ public class Warrior{
 
 	//Constructeur complet
 	public Warrior (String name, String url, int life, int attack) {
+		if (name.equals("") || url.equals("") || life < niveauDeVieMin || life > niveauDeVieMax || attack > forceAttaqueMax || attack < forceAttaqueMin) {
+			throw new IllegalArgumentException("Paramètres invalides. Réssayer");
+		}
 		nom = name;
 		imageURL = url;
 		niveauDeVie = life;
