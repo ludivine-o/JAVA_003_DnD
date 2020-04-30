@@ -18,7 +18,7 @@ public class DnD {
 	public void crea_perso() {
 		System.out.println("Veuillez choisir un perso : Magicien ou Guerrier : ");
 		g_race = scan.nextLine();
-		if (!g_race.equals("Magicien") && !g_race.equals("Guerrier")) {
+		if (!g_race.equals("Magicien") && !g_race.equals("Guerrier")) {						
 			System.out.println("Cette race n'existe pas (encore). Il faut recommencer !");
 			crea_perso();
 			return;
@@ -76,11 +76,11 @@ public class DnD {
 			catch (Exception param_crea_invalides){
 				if (!g_nom_perso.equals("")) {
 					g_war = new Warrior(g_nom_perso);
-					System.out.println("Attention : certains parametres saisis sont invalides. (perso crée que avec le nom)");
+					System.out.println("Attention : certains parametres saisis sont invalides (perso crée que avec le nom)");
 				}
 				else {
 					g_war = new Warrior();
-					System.out.println("Attention : le parametre saisi est invalide. (le nom du perso sera 'Inconnu')");
+					System.out.println("Attention : le parametre saisi est invalide (le nom du perso sera 'Inconnu')");
 				}
 			}
 			war_HMap.put(g_nom_perso, g_war);
@@ -148,12 +148,20 @@ public class DnD {
 		System.out.println("Renseignez le nom de votre perso : ");
 		g_nom_perso = scan.nextLine();
 		if (g_race.equals("Magicien")) {
-			System.out.println(wiz_HMap.get(g_nom_perso));
+			//System.out.println(wiz_HMap.get(g_nom_perso));
+			g_wiz = wiz_HMap.get(g_nom_perso);
+			if (!g_wiz.equals(null)) {
+				System.out.println("Son philtre est " + g_wiz.getPhiltre() + " et son sort est " + g_wiz.getSort());	
+			}
+			else {
+				System.out.println("Ce perso n'existe pas encore !!");	
+			}
 		}
 		if (g_race.equals("Guerrier")) {
 			System.out.println(wiz_HMap.get(g_nom_perso));
+			g_war = war_HMap.get(g_nom_perso);
 		}
-//		System.out.println("Race : ,\nNom : ,\n Point de vie : ,\n Point d'attaque : ,\n Arme : ,\n Defense :\n");
+		//System.out.println("Race : ,\nNom : ,\n Point de vie : ,\n Point d'attaque : ,\n Arme : ,\n Defense :\n");
 	}
 
 	/* ================================ LISTER PERSO ======================================*/

@@ -31,11 +31,11 @@ public class Wizzard{
 	public int getAttack() {
 		return forceAttaque;
 	}
-	public Sort getSort() {
-		return sort;
+	public String getSort() {
+		return sort.nom;
 	}
-	public Philtre getPhiltre() {
-		return philtre;
+	public String getPhiltre() {
+		return philtre.nom;
 	}
 
 	//Setters
