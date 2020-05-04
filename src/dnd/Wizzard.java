@@ -3,83 +3,25 @@ package dnd;
 //import java.awt.desktop.SystemEventListener;
 //import java.util.HashMap;
 
-public class Wizzard {
-	private String nom;
-	private String imageURL;
-	private int niveauDeVie;
-	private int niveauDeVieMin = 5;
-	private int niveauDeVieMax = 10;
-	private int forceAttaque;
-	private int forceAttaqueMin = 5;
-	private int forceAttaqueMax = 10;
+public class Wizzard extends Perso{
+	//private String nom;
+	//private String imageURL;
+	//private int niveauDeVie;
+	//private int forceAttaque;
+	public static final int niveauDeVieMin = 3;
+	public static final int niveauDeVieMax = 6;
+	public static final int forceAttaqueMin = 8;
+	public static final int forceAttaqueMax = 15;
 	private Sort sort;
 	private Philtre philtre;
 
-	/* ---------------------------Methods ---------------------- */
-
-	public String toString() {
-		return this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque
-				+ " d'attaque.\n";
-	}
-
-	// Getters
-	public String getName() {
-		return this.nom;
-	}
-
-	public String getURL() {
-		return this.imageURL;
-	}
-
-	public int getLife() {
-		return this.niveauDeVie;
-	}
-
-	public int getAttack() {
-		return this.forceAttaque;
-	}
-
-	public String getSort() {
-		return this.sort.nom;
-	}
-
-	public String getPhiltre() {
-		return this.philtre.nom;
-	}
-
-	// Setters
-	public void setName(String newValue) {
-		this.nom = newValue;
-	}
-
-	public void setURL(String newValue) {
-		this.imageURL = newValue;
-	}
-
-	public void setLife(int newValue) {
-		this.niveauDeVie = newValue;
-	}
-
-	public void setAttack(int newValue) {
-		this.forceAttaque = newValue;
-	}
-
-	public void setSort(Sort newValue) {
-		this.sort = newValue;
-	}
-
-	public void setPhiltre(Philtre newValue) {
-		this.philtre = newValue;
-	}
-
+	
+	
 	/* ---------------------------Constructors ---------------------- */
 
 	// Constructeur par defaut
 	public Wizzard() {
-		nom = "Inconnu";
-		imageURL = "Pas d'image";
-		niveauDeVie = 5;
-		forceAttaque = 5;
+		super();
 		sort = new Sort();
 		philtre = new Philtre();
 
@@ -87,10 +29,7 @@ public class Wizzard {
 
 	// Constructeur moit'
 	public Wizzard(String name) {
-		nom = name;
-		imageURL = "Pas d'image";
-		niveauDeVie = 5;
-		forceAttaque = 5;
+		super(name);
 		sort = new Sort();
 		philtre = new Philtre();
 
@@ -99,17 +38,52 @@ public class Wizzard {
 	// Constructeur complet
 
 	public Wizzard (String name, String url, int life, int attack) {
-		if (name.equals("") || url.equals("") || life < niveauDeVieMin || life > niveauDeVieMax || attack > forceAttaqueMax || attack < forceAttaqueMin) {
-			throw new IllegalArgumentException("Paramètres invalides. Réssayer");
-		}
-		nom = name;
-		imageURL = url;
-		niveauDeVie = life;
-		forceAttaque = attack;
+		super(name, url, life, attack);
+//		if (name.equals("") || url.equals("") || life < niveauDeVieMin || life > niveauDeVieMax || attack > forceAttaqueMax || attack < forceAttaqueMin) {
+//			throw new IllegalArgumentException("Paramètres invalides. Réssayer");
+//		}
 		sort = new Sort();
 		philtre = new Philtre();
 
 	}
+	
+	
+	/* ---------------------------Methods ---------------------- */
+	@Override
+	public String toString() {
+		return this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque
+				+ " d'attaque.\n";
+	}
+
+	@Override
+	public void attaque() {
+		//truc
+	}
+	@Override
+	public void defense() {
+		//truc
+	}
+	
+	
+	// Getters
+	public String getSort() {
+		return this.sort.getNom();
+	}
+
+	public String getPhiltre() {
+		return this.philtre.getNom();
+	}
+
+	// Setters
+	public void setSort(Sort newValue) {
+		this.sort = newValue;
+	}
+
+	public void setPhiltre(Philtre newValue) {
+		this.philtre = newValue;
+	}
+
+
 
 
 }

@@ -6,7 +6,6 @@ public class DnDScanner {
 
 	Scanner scan = new Scanner(System.in);
 	
-	
 	/* ================================ DDE INFO (String) ======================================*/
 	public  String askString(String question) {
 		System.out.println(question);
@@ -20,8 +19,7 @@ public class DnDScanner {
 		return saisie;
 	}
 	/* ================================ DDE INFO (Int) ======================================*/
-	public void print(String stce) {
+	public void printStr(String stce) {
 		System.out.println(stce);
 	}
-	
 }

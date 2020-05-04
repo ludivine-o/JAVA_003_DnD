@@ -3,6 +3,8 @@ package dnd;
 public class Main {
 	public static void main(String[] args) {
 	
+		// TODO 04/05 1 seule Hmap
+		//TODO 04/05 : if (truc instance of Warrior)
 		
 		DnD donjon = new DnD();
 		while(true) {
@@ -20,9 +22,6 @@ public class Main {
 			else if (cmd.equals("M")) {
 				donjon.modif_perso();
 			}
-	
 		}
-		 
 	}
-
 }
