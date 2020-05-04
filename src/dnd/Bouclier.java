@@ -3,5 +3,5 @@ package dnd;
 
 
 public class Bouclier {
-	String nom;
+	String nom = "Bouclier d'Achille ";
 	}

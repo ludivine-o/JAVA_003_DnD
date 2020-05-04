@@ -1,68 +1,81 @@
 package dnd;
 
-public class Wizzard{
+//import java.awt.desktop.SystemEventListener;
+//import java.util.HashMap;
+
+public class Wizzard {
 	private String nom;
 	private String imageURL;
 	private int niveauDeVie;
-	private int niveauDeVieMin = 5 ;
-	private int niveauDeVieMax = 10 ;
+	private int niveauDeVieMin = 5;
+	private int niveauDeVieMax = 10;
 	private int forceAttaque;
 	private int forceAttaqueMin = 5;
 	private int forceAttaqueMax = 10;
 	private Sort sort;
 	private Philtre philtre;
 
-	/* ---------------------------Methods ----------------------*/
-	
+	/* ---------------------------Methods ---------------------- */
+
 	public String toString() {
-		return this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque + " d'attaque.\n" ;
-	}
-	
-	// Getters
-	public String getName() {
-		return nom;
-	}
-	public String getURL() {
-		return imageURL;
-	}
-	public int getLife() {
-		return niveauDeVie;
-	}
-	public int getAttack() {
-		return forceAttaque;
-	}
-	public String getSort() {
-		return sort.nom;
-	}
-	public String getPhiltre() {
-		return philtre.nom;
+		return this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque
+				+ " d'attaque.\n";
 	}
 
-	//Setters
+	// Getters
+	public String getName() {
+		return this.nom;
+	}
+
+	public String getURL() {
+		return this.imageURL;
+	}
+
+	public int getLife() {
+		return this.niveauDeVie;
+	}
+
+	public int getAttack() {
+		return this.forceAttaque;
+	}
+
+	public String getSort() {
+		return this.sort.nom;
+	}
+
+	public String getPhiltre() {
+		return this.philtre.nom;
+	}
+
+	// Setters
 	public void setName(String newValue) {
 		this.nom = newValue;
 	}
+
 	public void setURL(String newValue) {
 		this.imageURL = newValue;
 	}
+
 	public void setLife(int newValue) {
 		this.niveauDeVie = newValue;
 	}
+
 	public void setAttack(int newValue) {
 		this.forceAttaque = newValue;
 	}
+
 	public void setSort(Sort newValue) {
 		this.sort = newValue;
 	}
+
 	public void setPhiltre(Philtre newValue) {
 		this.philtre = newValue;
 	}
-	
-	
-	/* ---------------------------Constructors ----------------------*/
-	
-	//Constructeur par defaut
-	public Wizzard () {
+
+	/* ---------------------------Constructors ---------------------- */
+
+	// Constructeur par defaut
+	public Wizzard() {
 		nom = "Inconnu";
 		imageURL = "Pas d'image";
 		niveauDeVie = 5;
@@ -72,8 +85,8 @@ public class Wizzard{
 
 	}
 
-	//Constructeur moit'
-	public Wizzard (String name) {
+	// Constructeur moit'
+	public Wizzard(String name) {
 		nom = name;
 		imageURL = "Pas d'image";
 		niveauDeVie = 5;
@@ -83,7 +96,7 @@ public class Wizzard{
 
 	}
 
-	//Constructeur complet
+	// Constructeur complet
 
 	public Wizzard (String name, String url, int life, int attack) {
 		if (name.equals("") || url.equals("") || life < niveauDeVieMin || life > niveauDeVieMax || attack > forceAttaqueMax || attack < forceAttaqueMin) {

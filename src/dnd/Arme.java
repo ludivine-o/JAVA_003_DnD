@@ -1,6 +1,6 @@
 package dnd;
 
 public class Arme {
-	String nom;
-	int niveauAttaque;
+	String nom = "Epée Glamdring";
+	int niveauAttaque = 10;
 }

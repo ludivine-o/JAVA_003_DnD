@@ -14,29 +14,28 @@ public class Warrior{
 	
 
 	/* ---------------------------Methods ----------------------*/
-	
 	public String toString() {
 		return this.nom + " est un Guerrier. Il a " + this.niveauDeVie + " de vie, et " + this.forceAttaque + " d'attaque." ;
 	}
 	
 	// Getters
 	public String getName() {
-		return nom;
+		return this.nom;
 	}
 	public String getURL() {
-		return imageURL;
+		return this.imageURL;
 	}
 	public int getLife() {
-		return niveauDeVie;
+		return this.niveauDeVie;
 	}
 	public int getAttack() {
-		return forceAttaque;
+		return this.forceAttaque;
 	}
-	public Arme getArme() {
-		return arme;
+	public String getArme() {
+		return this.arme.nom;
 	}
-	public Bouclier getBouclier() {
-		return bouclier;
+	public String getBouclier() {
+		return this.bouclier.nom;
 	}
 
 	//Setters
@@ -59,8 +58,7 @@ public class Warrior{
 		this.bouclier = newValue;
 	}
 	
-	
-	
+		
 	/* ---------------------------Constructors ----------------------*/
 	
 	//Constructeur par defaut
@@ -71,7 +69,6 @@ public class Warrior{
 		forceAttaque = 5;
 		arme = new Arme();
 		bouclier = new Bouclier();
-
 	}
 
 	//Constructeur moit'
@@ -82,7 +79,6 @@ public class Warrior{
 		forceAttaque = 5;
 		arme = new Arme();
 		bouclier = new Bouclier();
-
 	}
 
 	//Constructeur complet
@@ -96,6 +92,5 @@ public class Warrior{
 		forceAttaque = attack;
 		arme = new Arme();
 		bouclier = new Bouclier();
-
 	}
 }
