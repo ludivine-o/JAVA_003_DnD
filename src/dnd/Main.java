@@ -2,9 +2,6 @@ package dnd;
 
 public class Main {
 	public static void main(String[] args) {
-	
-
-		//TODO 04/05 : if (truc instance of Warrior)
 		
 		DnD donjon = new DnD();
 		while(true) {
@@ -25,7 +22,6 @@ public class Main {
 			else {
 				System.out.println("Saisie invalide !");
 			}
-
 		}
 	}
 }

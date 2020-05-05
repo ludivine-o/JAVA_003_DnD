@@ -60,6 +60,8 @@ abstract public class Perso {
 	}
 	
 	abstract String toStringFull();
+	abstract String getLabelEquipementAttack();
+	abstract String getLabelEquipementDefense();
 	abstract void SetEquipementDefense(String new_value, int int_new);
 	abstract void SetEquipementAttack(String new_value, int int_new);
 	abstract void attaque();

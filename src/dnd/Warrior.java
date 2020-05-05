@@ -2,13 +2,14 @@ package dnd;
 
 public class Warrior extends Perso{
 
-	public static final int niveauDeVieMin = 5;
-	public static final int niveauDeVieMax = 10;
-	public static final int forceAttaqueMin = 5;
-	public static final int forceAttaqueMax = 10;
+//	public static final int niveauDeVieMin = 5;
+//	public static final int niveauDeVieMax = 10;
+//	public static final int forceAttaqueMin = 5;
+//	public static final int forceAttaqueMax = 10;
 	private Arme arme;
 	private Bouclier bouclier;
-	
+	private String labelEquipementAttack = "l'arme du guerrier";
+	private String labelEquipementDefense = "le bouclier du guerrier";	
 
 	/* ---------------------------Constructors ----------------------*/
 	
@@ -51,6 +52,14 @@ public class Warrior extends Perso{
 				"\nSon bouclier est : " + this.bouclier.getNom() + " d'une valeur de défense de " + this.bouclier.getNiveauDefense());
 	}
 	
+	@Override
+	public String getLabelEquipementAttack() {
+		return this.labelEquipementAttack;
+	}
+	@Override
+	String getLabelEquipementDefense() {
+		return this.labelEquipementDefense;
+	}
 	
 	@Override
 	public void attaque() {
@@ -86,6 +95,11 @@ public class Warrior extends Perso{
 	public void setBouclier(Bouclier newValue) {
 		this.bouclier = newValue;
 	}
+
+	public void setLabelEquipementAttack(String labelEquipementAttack) {
+		this.labelEquipementAttack = labelEquipementAttack;
+	}
+
 
 
 	

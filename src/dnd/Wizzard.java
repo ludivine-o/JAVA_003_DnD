@@ -8,23 +8,21 @@ public class Wizzard extends Perso{
 	//private String imageURL;
 	//private int niveauDeVie;
 	//private int forceAttaque;
-	public static final int niveauDeVieMin = 3;
-	public static final int niveauDeVieMax = 6;
-	public static final int forceAttaqueMin = 8;
-	public static final int forceAttaqueMax = 15;
+//	public static final int niveauDeVieMin = 3;
+//	public static final int niveauDeVieMax = 6;
+//	public static final int forceAttaqueMin = 8;
+//	public static final int forceAttaqueMax = 15;
 	private Sort sort;
 	private Philtre philtre;
-
-	
+	private String labelEquipementAttack = "le sort du Magicien";
+	private String labelEquipementDefense = "le philtre du Magicien";
 	
 	/* ---------------------------Constructors ---------------------- */
-
 	// Constructeur par defaut
 	public Wizzard() {
 		super();
 		sort = new Sort();
 		philtre = new Philtre();
-
 	}
 
 	// Constructeur moit'
@@ -32,19 +30,13 @@ public class Wizzard extends Perso{
 		super(name);
 		sort = new Sort();
 		philtre = new Philtre();
-
 	}
 
 	// Constructeur complet
-
 	public Wizzard (String name, String url, int life, int attack) {
 		super(name, url, life, attack);
-//		if (name.equals("") || url.equals("") || life < niveauDeVieMin || life > niveauDeVieMax || attack > forceAttaqueMax || attack < forceAttaqueMin) {
-//			throw new IllegalArgumentException("Paramètres invalides. Réssayer");
-//		}
 		sort = new Sort();
 		philtre = new Philtre();
-
 	}
 	
 	
@@ -62,13 +54,23 @@ public class Wizzard extends Perso{
 				"\nSon philtre est : " + this.philtre.getNom() + " d'une valeur d de " + this.philtre.getNiveauDefense());
 	}
 	
-		@Override
+	@Override
 	public void attaque() {
 		//truc
 	}
 	@Override
 	public void defense() {
 		//truc
+	}
+	
+	@Override
+	public String getLabelEquipementAttack() {
+		return this.labelEquipementAttack;
+	}
+	
+	@Override
+	public String getLabelEquipementDefense() {
+		return this.labelEquipementDefense;
 	}
 	
 	public void SetEquipementAttack(String string_new, int int_new) {
@@ -82,7 +84,7 @@ public class Wizzard extends Perso{
 	}
 	
 	
-	// Getters
+	//  --------- Getters ---------
 	public String getSort() {
 		return this.sort.getNom();
 	}
@@ -91,7 +93,7 @@ public class Wizzard extends Perso{
 		return this.philtre.getNom();
 	}
 
-	// Setters
+	//---------Setters---------
 	public void setSort(Sort newValue) {
 		this.sort = newValue;
 	}
@@ -99,6 +101,9 @@ public class Wizzard extends Perso{
 	public void setPhiltre(Philtre newValue) {
 		this.philtre = newValue;
 	}
+
+
+
 
 
 

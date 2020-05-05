@@ -1,13 +1,13 @@
 package dnd;
 
 import java.util.HashMap;
-import java.util.InputMismatchException;
+
 
 public class DnD {
 
 	HashMap<String, Perso> perso_HMap;
-	HashMap<String, Wizzard> wiz_HMap;
-	HashMap<String, Warrior> war_HMap;
+//	HashMap<String, Wizzard> wiz_HMap;
+//	HashMap<String, Warrior> war_HMap;
 	Warrior g_war;
 	static Wizzard g_wiz;
 	String g_nom_perso, g_race, g_url;
@@ -28,13 +28,20 @@ public class DnD {
 	public static final String STR_INVALID_VALUE_WAR = "\n(pour un guerrier le niveau de vie et d'attaque sont compris entre 5 et 10)\n";
 	public static final String STR_UNKNOWN_RACE = "Cette race n'existe pas (encore) !";
 	public static final String STR_UNKNOWN_NAME = "Ce perso n'existe pas (encore) !";
+	public static final int niveauDeVieMin = 5;
+	public static final int niveauDeVieMax = 10;
+	public static final int forceAttaqueMin = 5;
+	public static final int forceAttaqueMax = 10;
+
+	
+	
 	
 	
 	/* ================================ CONSTRUCTEUR====================================== */
 	public DnD() {
 		this.in_out = new DnDScanner();
-		this.war_HMap = new HashMap<String, Warrior>();
-		this.wiz_HMap = new HashMap<String, Wizzard>();
+//		this.war_HMap = new HashMap<String, Warrior>();
+//		this.wiz_HMap = new HashMap<String, Wizzard>();
 		this.perso_HMap = new HashMap<String, Perso>();
 
 		this.g_nom_perso = "0";
@@ -55,55 +62,24 @@ public class DnD {
 	/* ================================ CREA PERSO  ====================================== */
 	public void crea_persoV2() {
 		g_race = in_out.askString(STR_RACE_CHOICE);
-		// -----> verif race existante ou non
+		//TODO 05/05 : faire une liste avec les races possibles, verif si saisie est existante.
 		if (!g_race.equals(MAGICIEN) && !g_race.equals(GUERRIER)) {
 			in_out.printStr(STR_UNKNOWN_RACE);
 			crea_persoV2();
 			return;
 		}
-		g_nom_perso = in_out.askString(STR_NAME_CHOICE);
-		Perso perso = perso_HMap.get(g_nom_perso);
-		if (perso != null) {
-			do {
-				g_nom_perso = in_out.askString(STR_INVALID_NAME);
-				perso = perso_HMap.get(g_nom_perso);
-			} while (perso != null);
-		}
-		while (true) {
-			try {
-				g_life = in_out.askInt(STR_LIFE_CHOICE);
-				g_attack = in_out.askInt(STR_ATTACK_CHOICE);
-				if (g_race.equals(MAGICIEN) && g_life >= Wizzard.niveauDeVieMin && g_life <= Wizzard.niveauDeVieMax && g_attack <= Wizzard.forceAttaqueMax && g_attack >= Wizzard.forceAttaqueMin) {
-					break;					
-				}
-				else if (g_race.equals(GUERRIER) && g_life >= Warrior.niveauDeVieMin && g_life <= Warrior.niveauDeVieMax && g_attack <= Warrior.forceAttaqueMax && g_attack >= Warrior.forceAttaqueMin) {
-					break;
-				}
-				else {
-					if (g_race.equals(MAGICIEN)){
-							in_out.printStr(STR_INVALID_VALUE_WIZ);
-					}
-					else if (g_race.equals(GUERRIER)){
-						in_out.printStr(STR_INVALID_VALUE_WAR);
-					}
-				}
-			} 
-			catch (InputMismatchException error) {
-				in_out.printStr(STR_INVALID);
-				in_out.scan.nextLine();
-			}
-		}
+		String name = nameChoice();
+		g_life = valueChoice(STR_LIFE_CHOICE, niveauDeVieMax, niveauDeVieMin);
+		g_attack = valueChoice(STR_LIFE_CHOICE, forceAttaqueMax, forceAttaqueMin);
 		g_url = in_out.askString(STR_URL_CHOICE);
 		if (g_race.equals(MAGICIEN)) {
-			perso = new Wizzard(g_nom_perso, g_url, g_life, g_attack);
+			perso_HMap.put(name,new Wizzard(g_nom_perso, g_url, g_life, g_attack));
 		}
-		if (g_race.equals(GUERRIER)) {
-			perso = new Warrior(g_nom_perso, g_url, g_life, g_attack);
+		else if (g_race.equals(GUERRIER)) {
+			perso_HMap.put(name, new Warrior(g_nom_perso, g_url, g_life, g_attack));
 		}
-		perso_HMap.put(g_nom_perso, perso);
 		in_out.printStr(STR_SUCCESS);
 	}
-
 
 	/*================================ MODIF PERSO ===================================*/
 	public void modif_perso() {
@@ -131,7 +107,6 @@ public class DnD {
 		Perso perso = perso_HMap.get(g_nom_perso);
 		if (perso != (null)) {
 			in_out.printStr(perso.toStringFull());
-			//ajouter un toString plus complet
 		} 
 		else {
 			in_out.printStr(STR_UNKNOWN_NAME);
@@ -174,32 +149,39 @@ public class DnD {
 		Perso perso = perso_HMap.get(name);
 		String cmd = in_out.askString("souhaitez-vous modifier l'équipement d'(A)ttaque ou de (D)éfense");
 		if (cmd.equals("A")) {
-			if (perso instanceof Wizzard) {
-				String new_value = in_out.askString("Saisir le nom du sort");
-				int int_new = in_out.askInt("Saisir la valeur d'attaque du sort");
-				perso.SetEquipementAttack(new_value, int_new);
-			}
-			else if (perso instanceof Warrior) {
-				String new_value = in_out.askString("Saisir le nom de l'arme");
-				int int_new = in_out.askInt("Saisir la valeur d'attaque de l'arme");
-				perso.SetEquipementAttack(new_value, int_new);
-			}
+			String new_value = in_out.askString("Saisir le nom du " + perso.getLabelEquipementAttack());
+			int int_new = in_out.askInt("Saisir la valeur d'attaque du  " + perso.getLabelEquipementAttack());
+			perso.SetEquipementAttack(new_value, int_new);
 		}
 		else if (cmd.equals("D")) {
-			if (perso instanceof Wizzard) {
-				String new_value = in_out.askString("Saisir le nom du philtre");
-				int int_new = in_out.askInt("Saisir la valeur d'attaque du philtre");
-				perso.SetEquipementDefense(new_value, int_new);
-			}
-			else if (perso instanceof Warrior) {
-				String new_value = in_out.askString("Saisir le nom du bouclier");
-				int int_new = in_out.askInt("Saisir la valeur d'attaque du bouclier");
-				perso.SetEquipementDefense(new_value, int_new);
-			}
+			String new_value = in_out.askString("Saisir le nom du " + perso.getLabelEquipementDefense());
+			int int_new = in_out.askInt("Saisir la valeur d'attaque du  " + perso.getLabelEquipementDefense());
+			perso.SetEquipementDefense(new_value, int_new);	
 		}
 		else {
 			in_out.printStr(STR_INVALID);
 		}
 	}
+	private String nameChoice() {
+		g_nom_perso = in_out.askString(STR_NAME_CHOICE);
+		Perso perso = perso_HMap.get(g_nom_perso);
+		if (perso != null) {
+			do {
+				g_nom_perso = in_out.askString(STR_INVALID_NAME);
+				perso = perso_HMap.get(g_nom_perso);
+			} while (perso != null);
+		}
+		return g_nom_perso;
+	}
+	
+	private int valueChoice(String question, int value_max, int value_min) {
+		int value = in_out.askInt(question);
+		if (value >= value_min && value <= value_max) {
+			return value;
+		} else {
+			return valueChoice(question, value_max, value_min);
+		}
+	}
+
 }
 
