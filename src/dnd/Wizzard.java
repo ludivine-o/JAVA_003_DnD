@@ -59,7 +59,7 @@ public class Wizzard extends Perso{
 	public String toStringFull() {
 		return (this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie,  et " + this.forceAttaque + " d'attaque.\n"
 				+ "Son sort est : " + this.sort.getNom() + " d'une valeur d'attaque de " + this.sort.getNiveauAttaque() + 
-				"\nSon philtre est : " + this.philtre.getNom() + " d'une valeur de défense de " + this.philtre.getNiveauDefense());
+				"\nSon philtre est : " + this.philtre.getNom() + " d'une valeur d de " + this.philtre.getNiveauDefense());
 	}
 	
 		@Override

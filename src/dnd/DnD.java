@@ -46,7 +46,7 @@ public class DnD {
 
 	/*================================ MENU ====================================== */
 	public String Choix_utilisateur() {
-		in_out.printStr("\nSouhaitez-vous :\n   (C)réer un perso\n  (L)ister les persos\n"
+		in_out.printStr("\nSouhaitez-vous :\n   (C)réer un perso\n   (L)ister les persos\n"
 				+ "   (M)odifier les infos de votre perso,\n   (I)Obtenir des infos sur votre perso,\n" + "");
 		String cmd = in_out.scan.nextLine();
 		return cmd;
