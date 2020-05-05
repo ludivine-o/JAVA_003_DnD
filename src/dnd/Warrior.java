@@ -45,6 +45,14 @@ public class Warrior extends Perso{
 	}
 	
 	@Override
+	public String toStringFull() {
+		return (this.nom + " est un Guerrier. Il a " + this.niveauDeVie + " de vie,  et " + this.forceAttaque + " d'attaque.\n"
+				+ "Son arme est : " + this.arme.getNom() + " d'une valeur d'attaque de " + this.arme.getNiveauAttaque() + 
+				"\nSon bouclier est : " + this.bouclier.getNom() + " d'une valeur de défense de " + this.bouclier.getNiveauDefense());
+	}
+	
+	
+	@Override
 	public void attaque() {
 		//truc
 	}
@@ -53,6 +61,15 @@ public class Warrior extends Perso{
 		//truc
 	}
 	
+	public void SetEquipementAttack(String string_new, int int_new) {
+		this.arme.setNom(string_new);
+		this.arme.setNiveauAttaque(int_new);
+	}
+	
+	public void SetEquipementDefense(String new_value, int int_new) {
+		this.bouclier.setNom(new_value);
+		this.bouclier.setNiveauDefense(int_new);
+	}
 	
 	// Getters
 	public String getArme() {
@@ -69,6 +86,8 @@ public class Warrior extends Perso{
 	public void setBouclier(Bouclier newValue) {
 		this.bouclier = newValue;
 	}
+
+
 	
 }
 		

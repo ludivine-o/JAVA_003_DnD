@@ -59,6 +59,9 @@ abstract public class Perso {
 		this.forceAttaque = forceAttaque;
 	}
 	
+	abstract String toStringFull();
+	abstract void SetEquipementDefense(String new_value, int int_new);
+	abstract void SetEquipementAttack(String new_value, int int_new);
 	abstract void attaque();
 	abstract void defense();
 	
