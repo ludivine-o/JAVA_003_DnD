@@ -5,19 +5,26 @@ public class Main {
 		
 		DnD donjon = new DnD();
 		while(true) {
-			String cmd = donjon.Choix_utilisateur();
+			String cmd = donjon.userChoice();
 			
 			if (cmd.equals("C")) {
-				donjon.crea_persoV2();
+				donjon.characterCreator();
 			}
 			else if (cmd.equals("L")) {
-				donjon.lister_perso();
+				donjon.characterList();
 			}
 			else if (cmd.equals("I")) {
-				donjon.info_perso();
+				donjon.characterInfo();
 			}
 			else if (cmd.equals("M")) {
-				donjon.modif_perso();
+				donjon.characterModify();
+			}
+			else if (cmd.equals("J")) {
+				donjon.playBoardGame();
+			}
+			
+			else if (cmd.equals("Q")) {
+				break;
 			}
 			else {
 				System.out.println("Saisie invalide !");

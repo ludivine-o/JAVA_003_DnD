@@ -1,13 +1,16 @@
-package dnd;
+package characters;
 
-public class Warrior extends Perso{
+import equipment.Shield;
+import equipment.Weapon;
+
+public class Warrior extends Character{
 
 //	public static final int niveauDeVieMin = 5;
 //	public static final int niveauDeVieMax = 10;
 //	public static final int forceAttaqueMin = 5;
 //	public static final int forceAttaqueMax = 10;
-	private Arme arme;
-	private Bouclier bouclier;
+	private Weapon arme;
+	private Shield bouclier;
 	private String labelEquipementAttack = "l'arme du guerrier";
 	private String labelEquipementDefense = "le bouclier du guerrier";	
 
@@ -20,22 +23,22 @@ public class Warrior extends Perso{
 		imageURL = "Pas d'image";
 		niveauDeVie = 5;
 		forceAttaque = 5;
-		arme = new Arme();
-		bouclier = new Bouclier();
+		arme = new Weapon();
+		bouclier = new Shield();
 	}
 	
 	//Constructeur moit'
 	public Warrior (String name) {
 		super(name);
-		arme = new Arme();
-		bouclier = new Bouclier();
+		arme = new Weapon();
+		bouclier = new Shield();
 	}
 	
 	//Constructeur complet
-	public Warrior (String name, String url, int life, int attack) {
-		super(name, url, life, attack);
-		arme = new Arme();
-		bouclier = new Bouclier();
+	public Warrior (String name, String url) {
+		super(name, url);
+		arme = new Weapon();
+		bouclier = new Shield();
 	}
 	
 	
@@ -57,7 +60,7 @@ public class Warrior extends Perso{
 		return this.labelEquipementAttack;
 	}
 	@Override
-	String getLabelEquipementDefense() {
+	public String getLabelEquipementDefense() {
 		return this.labelEquipementDefense;
 	}
 	
@@ -89,10 +92,10 @@ public class Warrior extends Perso{
 	}
 
 	//Setters
-	public void setArme(Arme newValue) {
+	public void setArme(Weapon newValue) {
 		this.arme = newValue;
 	}
-	public void setBouclier(Bouclier newValue) {
+	public void setBouclier(Shield newValue) {
 		this.bouclier = newValue;
 	}
 

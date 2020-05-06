@@ -1,15 +1,15 @@
-package dnd;
+package equipment;
 
-abstract public class Equipement {
+abstract public class Equipment {
 	private String nom;
 		
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
-	public Equipement() {
+	public Equipment() {
 		this.nom = "Inconnu";
 	}
 	// Constructeur complet
-	public Equipement(String nom) {
+	public Equipment(String nom) {
 		this.nom = nom;
 	}
 

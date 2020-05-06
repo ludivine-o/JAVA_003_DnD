@@ -1,16 +1,16 @@
-package dnd;
+package equipment;
 
-public class Arme extends Equipement{
+public class Weapon extends Equipment{
 	private int niveauAttaque;
 
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
-	public Arme () {
+	public Weapon () {
 		super();
 		this.niveauAttaque = 5;
 	}
 	// Constructeur complet
-	public Arme (String nom, int niveauAttaque) {
+	public Weapon (String nom, int niveauAttaque) {
 		super(nom);
 		this.niveauAttaque = niveauAttaque;
 	}

@@ -1,30 +1,31 @@
-package dnd;
+package equipment;
 
-public class Philtre extends Equipement{
+
+public class Shield extends Equipment {
 	private int niveauDefense;
-	
-	
+
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
-	public Philtre() {
+	public Shield() {
 		super();
 		this.niveauDefense = 5;
 	}
+		
 	// Constructeur complet
-	public Philtre (String nom, int valeur) {
-		super(nom);
-		this.niveauDefense = valeur;
+	public Shield(int niveauAttaque) {
+		super();
+		this.niveauDefense = niveauAttaque;
 	}
-
 
 	/* ---------------------------Methods() ---------------------- */
 	public int getNiveauDefense() {
 		return niveauDefense;
 	}
-	public void setNiveauDefense(int valeur) {
-		this.niveauDefense = valeur;
+	public void setNiveauDefense(int niveauAttaque) {
+		this.niveauDefense = niveauAttaque;
 	}
 	
 	
 	
-}
+	
+	}

@@ -1,9 +1,12 @@
-package dnd;
+package characters;
+
+import equipment.Philter;
+import equipment.Spell;
 
 //import java.awt.desktop.SystemEventListener;
 //import java.util.HashMap;
 
-public class Wizzard extends Perso{
+public class Wizzard extends Character{
 	//private String nom;
 	//private String imageURL;
 	//private int niveauDeVie;
@@ -12,8 +15,8 @@ public class Wizzard extends Perso{
 //	public static final int niveauDeVieMax = 6;
 //	public static final int forceAttaqueMin = 8;
 //	public static final int forceAttaqueMax = 15;
-	private Sort sort;
-	private Philtre philtre;
+	private Spell sort;
+	private Philter philtre;
 	private String labelEquipementAttack = "le sort du Magicien";
 	private String labelEquipementDefense = "le philtre du Magicien";
 	
@@ -21,22 +24,22 @@ public class Wizzard extends Perso{
 	// Constructeur par defaut
 	public Wizzard() {
 		super();
-		sort = new Sort();
-		philtre = new Philtre();
+		sort = new Spell();
+		philtre = new Philter();
 	}
 
 	// Constructeur moit'
 	public Wizzard(String name) {
 		super(name);
-		sort = new Sort();
-		philtre = new Philtre();
+		sort = new Spell();
+		philtre = new Philter();
 	}
 
 	// Constructeur complet
-	public Wizzard (String name, String url, int life, int attack) {
-		super(name, url, life, attack);
-		sort = new Sort();
-		philtre = new Philtre();
+	public Wizzard (String name, String url) {
+		super(name, url);
+		sort = new Spell();
+		philtre = new Philter();
 	}
 	
 	
@@ -51,7 +54,7 @@ public class Wizzard extends Perso{
 	public String toStringFull() {
 		return (this.nom + " est un Magicien. Il a " + this.niveauDeVie + " de vie,  et " + this.forceAttaque + " d'attaque.\n"
 				+ "Son sort est : " + this.sort.getNom() + " d'une valeur d'attaque de " + this.sort.getNiveauAttaque() + 
-				"\nSon philtre est : " + this.philtre.getNom() + " d'une valeur d de " + this.philtre.getNiveauDefense());
+				"\nSon philtre est : " + this.philtre.getNom() + " d'une valeur de " + this.philtre.getNiveauDefense());
 	}
 	
 	@Override
@@ -72,12 +75,12 @@ public class Wizzard extends Perso{
 	public String getLabelEquipementDefense() {
 		return this.labelEquipementDefense;
 	}
-	
+	@Override
 	public void SetEquipementAttack(String string_new, int int_new) {
 		this.sort.setNom(string_new);
 		this.sort.setNiveauAttaque(int_new);
 	}
-	
+	@Override
 	public void SetEquipementDefense(String new_value, int int_new) {
 		this.philtre.setNom(new_value);
 		this.philtre.setNiveauDefense(int_new);
@@ -94,11 +97,11 @@ public class Wizzard extends Perso{
 	}
 
 	//---------Setters---------
-	public void setSort(Sort newValue) {
+	public void setSort(Spell newValue) {
 		this.sort = newValue;
 	}
 
-	public void setPhiltre(Philtre newValue) {
+	public void setPhiltre(Philter newValue) {
 		this.philtre = newValue;
 	}
 

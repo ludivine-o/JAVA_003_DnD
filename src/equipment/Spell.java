@@ -1,16 +1,16 @@
-package dnd;
+package equipment;
 
-public class Sort extends Equipement{
+public class Spell extends Equipment{
 	int niveauAttaque;
 	
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
-	public Sort() {
+	public Spell() {
 		super();
 		this.niveauAttaque = 5;
 	}
 	// Constructeur complet
-	public Sort(String nom, int niveau) {
+	public Spell(String nom, int niveau) {
 		super(nom);
 		this.niveauAttaque = niveau;
 	}

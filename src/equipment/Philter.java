@@ -1,31 +1,30 @@
-package dnd;
+package equipment;
 
-
-public class Bouclier extends Equipement {
+public class Philter extends Equipment{
 	private int niveauDefense;
-
+	
+	
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
-	public Bouclier() {
+	public Philter() {
 		super();
 		this.niveauDefense = 5;
 	}
-		
 	// Constructeur complet
-	public Bouclier(int niveauAttaque) {
-		super();
-		this.niveauDefense = niveauAttaque;
+	public Philter (String nom, int valeur) {
+		super(nom);
+		this.niveauDefense = valeur;
 	}
+
 
 	/* ---------------------------Methods() ---------------------- */
 	public int getNiveauDefense() {
 		return niveauDefense;
 	}
-	public void setNiveauDefense(int niveauAttaque) {
-		this.niveauDefense = niveauAttaque;
+	public void setNiveauDefense(int valeur) {
+		this.niveauDefense = valeur;
 	}
 	
 	
 	
-	
-	}
+}

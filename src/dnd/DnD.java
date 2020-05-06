@@ -2,25 +2,52 @@ package dnd;
 
 import java.util.HashMap;
 
+import boardgame.BoardBox;
+import boardgame.BonusBoxPhilter;
+import boardgame.BonusBoxTreasure;
+import boardgame.GameBoard;
+import boardgame.MalusBoxGob;
+import boardgame.MalusBoxOrcs;
+import characters.Character;
+import characters.Warrior;
+import characters.Wizzard;
+
+/**
+ * 
+ * @author ludivineo
+ *<b> DnD est la classe 'coeur de jeu' </b>
+ *elle a : 
+ *	un membre DnD Scanner,
+ *	un hashmap pour stocker les données
+ *elle permet de :
+ *	Créer un perso,
+ *	Modifier un perso,
+ *	Afficher les infos d'un perso,
+ *	Lister les perso,
+ */
+
 
 public class DnD {
 
-	HashMap<String, Perso> perso_HMap;
-//	HashMap<String, Wizzard> wiz_HMap;
-//	HashMap<String, Warrior> war_HMap;
+	HashMap<String, Character> character_HMap;
+	//	HashMap<String, Wizzard> wiz_HMap;
+	//	HashMap<String, Warrior> war_HMap;
 	Warrior g_war;
 	static Wizzard g_wiz;
-	String g_nom_perso, g_race, g_url;
+	String g_character_name, g_race, g_url;
 	int g_life, g_attack;
 	DnDScanner in_out;
-	public static final String MAGICIEN = "M";
-	public static final String GUERRIER = "G";
+	GameBoard board;
+	Character activePlayer;
+
+	public static final String WIZZARD = "M";
+	public static final String WARIOR = "G";
 	public static final String STR_RACE_CHOICE = "Quelle est la race de votre perso : (M)agicien ou (G)uerrier : ";
 	public static final String STR_NAME_CHOICE = "Quel est le nom de votre perso : ";
 	public static final String STR_LIFE_CHOICE = "Quelle est le niveau de vie(max 10) de votre perso : ";
 	public static final String STR_ATTACK_CHOICE = "Quelle est le niveau d'attaque (max 10) de votre perso : ";
 	public static final String STR_URL_CHOICE = "Quelle est l'url de l'image de votre perso : ";
-	public static final String STR_PARAM_CHOICE = "Saisir le parametre à modifier (V)ie, (A)ttaque, (U)rl d'image, (E)quipement (defense ou attaque):";
+	public static final String STR_PARAM_CHOICE = "Saisir le parametre à modifier (U)rl d'image, (E)quipement (defense ou attaque):";
 	public static final String STR_SUCCESS = "Action réalisée avec succès !!";
 	public static final String STR_INVALID = "Saisie invalide.";
 	public static final String STR_INVALID_NAME = "Ce nom est deja utilisé. Un autre ? ";
@@ -28,23 +55,21 @@ public class DnD {
 	public static final String STR_INVALID_VALUE_WAR = "\n(pour un guerrier le niveau de vie et d'attaque sont compris entre 5 et 10)\n";
 	public static final String STR_UNKNOWN_RACE = "Cette race n'existe pas (encore) !";
 	public static final String STR_UNKNOWN_NAME = "Ce perso n'existe pas (encore) !";
-	public static final int niveauDeVieMin = 5;
-	public static final int niveauDeVieMax = 10;
-	public static final int forceAttaqueMin = 5;
-	public static final int forceAttaqueMax = 10;
+	public static final int LIFEMAX = 5;
+	public static final int LIFEMIN = 10;
+	public static final int ATTACKMIN = 5;
+	public static final int ATTACKMAX = 10;
 
-	
-	
-	
-	
+
+
+
 	/* ================================ CONSTRUCTEUR====================================== */
 	public DnD() {
 		this.in_out = new DnDScanner();
-//		this.war_HMap = new HashMap<String, Warrior>();
-//		this.wiz_HMap = new HashMap<String, Wizzard>();
-		this.perso_HMap = new HashMap<String, Perso>();
+		this.board = new GameBoard();
+		this.character_HMap = new HashMap<String, Character>();
 
-		this.g_nom_perso = "0";
+		this.g_character_name = "0";
 		this.g_race = "0";
 		this.g_url = "0";
 		this.g_life = 0;
@@ -52,49 +77,57 @@ public class DnD {
 	}
 
 	/*================================ MENU ====================================== */
-	public String Choix_utilisateur() {
-		in_out.printStr("\nSouhaitez-vous :\n   (C)réer un perso\n   (L)ister les persos\n"
-				+ "   (M)odifier les infos de votre perso,\n   (I)Obtenir des infos sur votre perso,\n" + "");
+	public String userChoice() {
+		in_out.printStr("\nSouhaitez-vous :\n   (C)réer un perso,\n   (L)ister les persos,\n"
+				+ "   (M)odifier les infos de votre perso,\n   (I)Obtenir des infos sur votre perso,\n"
+				+ "   (J)ouer sur le plateau,\n   (Q)uitter");
 		String cmd = in_out.scan.nextLine();
 		return cmd;
 	}
 
 	/* ================================ CREA PERSO  ====================================== */
-	public void crea_persoV2() {
+	public void characterCreator() {
 		g_race = in_out.askString(STR_RACE_CHOICE);
 		//TODO 05/05 : faire une liste avec les races possibles, verif si saisie est existante.
-		if (!g_race.equals(MAGICIEN) && !g_race.equals(GUERRIER)) {
+		if (!g_race.equals(WIZZARD) && !g_race.equals(WARIOR)) {
 			in_out.printStr(STR_UNKNOWN_RACE);
-			crea_persoV2();
+			characterCreator();
 			return;
 		}
+		// /!\ Ici les valeurs min et max sont communes au deux types de perso !!!
 		String name = nameChoice();
-		g_life = valueChoice(STR_LIFE_CHOICE, niveauDeVieMax, niveauDeVieMin);
-		g_attack = valueChoice(STR_LIFE_CHOICE, forceAttaqueMax, forceAttaqueMin);
 		g_url = in_out.askString(STR_URL_CHOICE);
-		if (g_race.equals(MAGICIEN)) {
-			perso_HMap.put(name,new Wizzard(g_nom_perso, g_url, g_life, g_attack));
+		if (g_race.equals(WIZZARD)) {
+			if (g_character_name.isEmpty() || g_url.isEmpty()) {
+				character_HMap.put(name,new Wizzard());
+			}
+			else {
+				character_HMap.put(name,new Wizzard(g_character_name, g_url));
+			}
 		}
-		else if (g_race.equals(GUERRIER)) {
-			perso_HMap.put(name, new Warrior(g_nom_perso, g_url, g_life, g_attack));
+
+		
+		else if (g_race.equals(WARIOR)) {
+			if (g_character_name.isEmpty() || g_url.isEmpty()) {
+				character_HMap.put(name,new Warrior());
+			}
+			else {
+				character_HMap.put(name, new Warrior(g_character_name, g_url));
+			}
 		}
 		in_out.printStr(STR_SUCCESS);
 	}
 
 	/*================================ MODIF PERSO ===================================*/
-	public void modif_perso() {
-		g_nom_perso = in_out.askString(STR_NAME_CHOICE);
-		Perso perso = perso_HMap.get(g_nom_perso);
+	public void characterModify() {
+		g_character_name = in_out.askString(STR_NAME_CHOICE);
+		Character perso = character_HMap.get(g_character_name);
 		if(!perso.equals(null)) {
 			String param = in_out.askString(STR_PARAM_CHOICE);
-			if (param.equals("V")) {
-				modifVieV2(g_nom_perso);
-			} else if (param.equals("A")) {
-				modifAttackV2(g_nom_perso);
-			} else if (param.equals("U")) {
-				modifURLV2(g_nom_perso);
+			if (param.equals("U")) {
+				urlModif(g_character_name);
 			} else if (param.equals("E")) {
-				modifEquipement(g_nom_perso);
+				equipmentModif(g_character_name);
 			} else {
 				in_out.printStr(STR_INVALID);
 			}
@@ -102,9 +135,9 @@ public class DnD {
 	}
 
 	/* ================================ INFO PERSO======================================*/
-	public void info_perso() {						//------------> V2
-		g_nom_perso = in_out.askString(STR_NAME_CHOICE);
-		Perso perso = perso_HMap.get(g_nom_perso);
+	public void characterInfo() {						//------------> V2
+		g_character_name = in_out.askString(STR_NAME_CHOICE);
+		Character perso = character_HMap.get(g_character_name);
 		if (perso != (null)) {
 			in_out.printStr(perso.toStringFull());
 		} 
@@ -114,66 +147,137 @@ public class DnD {
 	}
 
 	/*================================ LISTER PERSO======================================*/
-	public void lister_perso() {
-		System.out.println(perso_HMap);
+	public void characterList() {
+		if (character_HMap.isEmpty()) {
+			in_out.printStr("La liste des persos est vide ! Il faut en créer un !");
+		}
+		else {
+			System.out.println(character_HMap);
+		}
+
 		// TODO 30/04 : faire une boucle pour parcourir, et afficher les infos perso par perso
 	}
+
+	/*================================ JOUER PLATEAU JEU ======================================*/
+	public void playBoardGame() {
+		Character activePlayer = null;
+		//String var;
+		int position = 0;
+		BoardBox activeBox;
+		in_out.printStr("Il faut choisir un joueur");
+		if (character_HMap.isEmpty()) {
+			in_out.printStr("La liste des persos est vide ! Il faut en créer un !");
+		}
+		else {
+			System.out.println(character_HMap);
+			g_character_name = in_out.askString(STR_NAME_CHOICE);
+			activePlayer = character_HMap.get(g_character_name);
+			if (activePlayer == (null)) {
+				in_out.printStr(STR_UNKNOWN_NAME);
+			}
+			else  {		
+				while (activePlayer != null && position < board.BOARDSIZE) {
+					String cmd = in_out.askString("Pour avancer d'une case, appuyer sur 'A'");
+					if (cmd.equals("A")) {
+						activeBox = board.board.get(position);
+						in_out.printStr(activeBox.toString());
+						position ++;
+						if (activeBox instanceof MalusBoxOrcs || activeBox instanceof MalusBoxGob) {
+							activePlayer = board.applyMalusBoxEvent(activeBox, activePlayer);
+						}
+						else if (activeBox instanceof BonusBoxPhilter || activeBox instanceof BonusBoxTreasure) {
+							activePlayer = board.applyBonusBoxEvent(activeBox, activePlayer);
+						}
+						else {
+							in_out.printStr("Un passage sans embuche ...");
+						}
+						if (activePlayer.getLife()<1) {
+							break;
+						}
+					}
+					else {
+						continue;
+					}
+				}
+				if (activePlayer.getLife()>=1) {
+					in_out.printStr("======================\nBravo !!\n====================== ");
+				}
+				else {
+					in_out.printStr("======================\nPan! t'es mort\n====================== ");
+				}
+			}
+		}
+	}
+
 
 	/* ============================================================================
 	  ==============================Fonctions "bas-niveau"=========================
 	  ============================================================================
 	 */
 
-	private void modifVieV2(String name) {
+	private void lifeModif(String name) {
 		int new_value = in_out.askInt(STR_LIFE_CHOICE);
-		Perso perso = perso_HMap.get(name);
+		Character perso = character_HMap.get(name);
 		perso.setLife(new_value);
 	}
 
-	private void modifAttackV2(String name) {
+	private void attackModif(String name) {
 		int new_value = in_out.askInt(STR_ATTACK_CHOICE);
-		Perso perso = perso_HMap.get(name);
+		Character perso = character_HMap.get(name);
 		perso.setAttack(new_value);
-		in_out.scan.nextLine();
+		//in_out.scan.nextLine();
 	}
 
-	
-	private void modifURLV2(String name) {
+
+	private void urlModif(String name) {
 		String new_value = in_out.askString(STR_URL_CHOICE);
-		Perso perso = perso_HMap.get(name);
+		Character perso = character_HMap.get(name);
 		perso.setURL(new_value);
-		in_out.scan.nextLine();
+		//in_out.scan.nextLine();
+		in_out.printStr(STR_SUCCESS);
 	}
 
-	private void modifEquipement(String name) {
-		Perso perso = perso_HMap.get(name);
+	private void equipmentModif(String name) {
+		Character perso = character_HMap.get(name);
 		String cmd = in_out.askString("souhaitez-vous modifier l'équipement d'(A)ttaque ou de (D)éfense");
 		if (cmd.equals("A")) {
 			String new_value = in_out.askString("Saisir le nom du " + perso.getLabelEquipementAttack());
 			int int_new = in_out.askInt("Saisir la valeur d'attaque du  " + perso.getLabelEquipementAttack());
 			perso.SetEquipementAttack(new_value, int_new);
+			in_out.printStr(STR_SUCCESS);
 		}
 		else if (cmd.equals("D")) {
 			String new_value = in_out.askString("Saisir le nom du " + perso.getLabelEquipementDefense());
 			int int_new = in_out.askInt("Saisir la valeur d'attaque du  " + perso.getLabelEquipementDefense());
 			perso.SetEquipementDefense(new_value, int_new);	
+			in_out.printStr(STR_SUCCESS);
 		}
 		else {
 			in_out.printStr(STR_INVALID);
 		}
 	}
+
+	/** 
+	 * 
+	 * @return le nom d'un perso non existant (String)
+	 */
 	private String nameChoice() {
-		g_nom_perso = in_out.askString(STR_NAME_CHOICE);
-		Perso perso = perso_HMap.get(g_nom_perso);
+		g_character_name = in_out.askString(STR_NAME_CHOICE);
+		Character perso = character_HMap.get(g_character_name);
 		if (perso != null) {
 			do {
-				g_nom_perso = in_out.askString(STR_INVALID_NAME);
-				perso = perso_HMap.get(g_nom_perso);
+				g_character_name = in_out.askString(STR_INVALID_NAME);
+				perso = character_HMap.get(g_character_name);
 			} while (perso != null);
 		}
-		return g_nom_perso;
+		return g_character_name;
 	}
-	
+	/**
+	 * @param question : la question à poser à l'utilisateur
+	 * @param value_max  : La valeur max de la saisie "value"
+	 * @param value_min : La valeur min de la saisie "value"
+	 * @return un entier, la valeur verifiée
+	 */
 	private int valueChoice(String question, int value_max, int value_min) {
 		int value = in_out.askInt(question);
 		if (value >= value_min && value <= value_max) {
@@ -182,6 +286,8 @@ public class DnD {
 			return valueChoice(question, value_max, value_min);
 		}
 	}
+
+
 
 }
 
