@@ -3,7 +3,7 @@ package dnd;
 import java.util.HashMap;
 
 import boardgame.BoardBox;
-import boardgame.BonusBoxPhilter;
+import boardgame.BonusBoxPotion;
 import boardgame.BonusBoxTreasure;
 import boardgame.GameBoard;
 import boardgame.MalusBoxGob;
@@ -185,7 +185,7 @@ public class DnD {
 						if (activeBox instanceof MalusBoxOrcs || activeBox instanceof MalusBoxGob) {
 							activePlayer = board.applyMalusBoxEvent(activeBox, activePlayer);
 						}
-						else if (activeBox instanceof BonusBoxPhilter || activeBox instanceof BonusBoxTreasure) {
+						else if (activeBox instanceof BonusBoxPotion || activeBox instanceof BonusBoxTreasure) {
 							activePlayer = board.applyBonusBoxEvent(activeBox, activePlayer);
 						}
 						else {
@@ -215,18 +215,18 @@ public class DnD {
 	  ============================================================================
 	 */
 
-	private void lifeModif(String name) {
-		int new_value = in_out.askInt(STR_LIFE_CHOICE);
-		Character perso = character_HMap.get(name);
-		perso.setLife(new_value);
-	}
-
-	private void attackModif(String name) {
-		int new_value = in_out.askInt(STR_ATTACK_CHOICE);
-		Character perso = character_HMap.get(name);
-		perso.setAttack(new_value);
-		//in_out.scan.nextLine();
-	}
+//	private void lifeModif(String name) {
+//		int new_value = in_out.askInt(STR_LIFE_CHOICE);
+//		Character perso = character_HMap.get(name);
+//		perso.setLife(new_value);
+//	}
+//
+//	private void attackModif(String name) {
+//		int new_value = in_out.askInt(STR_ATTACK_CHOICE);
+//		Character perso = character_HMap.get(name);
+//		perso.setAttack(new_value);
+//		//in_out.scan.nextLine();
+//	}
 
 
 	private void urlModif(String name) {
@@ -278,14 +278,14 @@ public class DnD {
 	 * @param value_min : La valeur min de la saisie "value"
 	 * @return un entier, la valeur verifiée
 	 */
-	private int valueChoice(String question, int value_max, int value_min) {
-		int value = in_out.askInt(question);
-		if (value >= value_min && value <= value_max) {
-			return value;
-		} else {
-			return valueChoice(question, value_max, value_min);
-		}
-	}
+//	private int valueChoice(String question, int value_max, int value_min) {
+//		int value = in_out.askInt(question);
+//		if (value >= value_min && value <= value_max) {
+//			return value;
+//		} else {
+//			return valueChoice(question, value_max, value_min);
+//		}
+//	}
 
 
 

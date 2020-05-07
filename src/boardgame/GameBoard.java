@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import characters.Character;
+import equipment.Equipment;
+import equipment.Weapon;
 
 public class GameBoard {
 
-	public final int BOARDSIZE = 10;
+	
+	Equipment bonusMassue = new Weapon("Massue", 1);
+	Equipment bonusArc = new Weapon("Arc", 3);
+	public final int BOARDSIZE = 64;
 	public ArrayList<BoardBox> board = new ArrayList<BoardBox>(BOARDSIZE);
 	
 	public GameBoard() {
@@ -16,19 +21,19 @@ public class GameBoard {
 			int randomBox = r.nextInt(7);
 			BoardBox var;
 			if (randomBox == 2) {
-				var = new MalusBoxOrcs(i);
+				var = new MalusBoxOrcs(i, 2);
 			}
 			else if (randomBox == 3) {
-				var = new MalusBoxOrcs(i);
+				var = new MalusBoxGob(i, 1);
 			}
 			else if (randomBox == 4) {
-				var = new MalusBoxOrcs(i);
+				var = new BonusBoxPotion(i, 2);
 			}
 			else if (randomBox == 5) {
-				var = new MalusBoxOrcs(i);
+				var = new BonusBoxTreasure(i, i, bonusArc);
 			}
 			else {
-				var = new MalusBoxOrcs(i);	
+				var = new EmptyBox(i);	
 			}
 			board.add(var);
 		}

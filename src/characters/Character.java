@@ -51,6 +51,7 @@ abstract public class Character {
 	}
 	public void setLife(int niveauDeVie) {
 		this.niveauDeVie = niveauDeVie;
+		
 	}
 	public int getAttack() {
 		return forceAttaque;

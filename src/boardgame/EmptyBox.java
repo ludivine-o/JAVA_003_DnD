@@ -6,7 +6,7 @@ public class EmptyBox extends BoardBox{
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
 	public EmptyBox(int caseNbr) {
-		super(caseNbr, "Chance ! c'est une case vide !", null, 0);
+		super(caseNbr, "Chance ! c'est une case vide !");
 	}
 
 	@Override

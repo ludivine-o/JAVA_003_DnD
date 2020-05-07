@@ -10,11 +10,10 @@ public abstract class BoardBox {
 	
 	/* ---------------------------Constructors ---------------------- */
 	// Constructeur par defaut
-	public BoardBox(int caseNbr, String event,String type,int value ) {
+	public BoardBox(int caseNbr, String event) {
 		this.caseNbr = caseNbr;
 		this.event = event;
-		this.type = type;
-		this.value = value;
+
 		}
 
 

@@ -12,9 +12,9 @@ public class Wizzard extends Character{
 	//private int niveauDeVie;
 	//private int forceAttaque;
 //	public static final int niveauDeVieMin = 3;
-//	public static final int niveauDeVieMax = 6;
 //	public static final int forceAttaqueMin = 8;
 //	public static final int forceAttaqueMax = 15;
+	public static final int MAX_LIFE = 10;
 	private Spell sort;
 	private Philter philtre;
 	private String labelEquipementAttack = "le sort du Magicien";
@@ -66,6 +66,18 @@ public class Wizzard extends Character{
 		//truc
 	}
 	
+
+
+	
+	
+	//  --------- Getters ---------
+	public String getSort() {
+		return this.sort.getNom();
+	}
+
+	public String getPhiltre() {
+		return this.philtre.getNom();
+	}
 	@Override
 	public String getLabelEquipementAttack() {
 		return this.labelEquipementAttack;
@@ -74,6 +86,22 @@ public class Wizzard extends Character{
 	@Override
 	public String getLabelEquipementDefense() {
 		return this.labelEquipementDefense;
+	}
+
+	//---------Setters---------
+	public void setSort(Spell newValue) {
+		this.sort = newValue;
+	}
+
+	public void setPhiltre(Philter newValue) {
+		this.philtre = newValue;
+	}
+	@Override
+	public void setLife(int niveauDeVie) {
+		super.setLife(niveauDeVie);
+		if (getLife() > MAX_LIFE) {
+			this.niveauDeVie = MAX_LIFE;
+		}
 	}
 	@Override
 	public void SetEquipementAttack(String string_new, int int_new) {
@@ -85,26 +113,12 @@ public class Wizzard extends Character{
 		this.philtre.setNom(new_value);
 		this.philtre.setNiveauDefense(int_new);
 	}
-	
-	
-	//  --------- Getters ---------
-	public String getSort() {
-		return this.sort.getNom();
+	public void setLabelEquipementAttack(String labelEquipementAttack) {
+		this.labelEquipementAttack = labelEquipementAttack;
 	}
-
-	public String getPhiltre() {
-		return this.philtre.getNom();
+	public void setLabelEquipementDefense(String labelEquipementDefense) {
+		this.labelEquipementDefense = labelEquipementDefense;
 	}
-
-	//---------Setters---------
-	public void setSort(Spell newValue) {
-		this.sort = newValue;
-	}
-
-	public void setPhiltre(Philter newValue) {
-		this.philtre = newValue;
-	}
-
 
 
 
